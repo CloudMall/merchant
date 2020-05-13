@@ -24,6 +24,8 @@ namespace CloudMall.Services.Merchant
         {
             services.AddControllers();
 
+            services.AddDbContext<Merchant.Database.MerchantDbContext>();
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("merchant", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Merchant API", Version = "1.0" });
