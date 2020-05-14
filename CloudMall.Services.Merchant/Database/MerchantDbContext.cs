@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CloudMall.Services.Merchant.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudMall.Services.Merchant.Database
 {
@@ -9,5 +10,9 @@ namespace CloudMall.Services.Merchant.Database
         }
 
         public DbSet<Models.Merchant> Merchants { get; set; }
+
+        public DbSet<MerchantCategory> MerchantCategories { get; set; }
+
+        public DbSet<MerchantManager> MerchantManagers { get; set; }
     }
 }

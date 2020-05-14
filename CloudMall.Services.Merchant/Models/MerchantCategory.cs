@@ -3,18 +3,17 @@ using WeihanLi.Common.Models;
 
 namespace CloudMall.Services.Merchant.Models
 {
-    public class Merchant : BaseEntity
+    public class MerchantCategory : BaseEntity<int>
     {
         [StringLength(16)]
+        [Required]
         public string Name { get; set; }
 
-        [StringLength(512)]
+        [StringLength(256)]
         public string Description { get; set; }
 
-        public string LogoUrl { get; set; }
+        public int ParentId { get; set; }
 
         public string Extra { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

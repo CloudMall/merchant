@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using WeihanLi.Common;
+using WeihanLi.EntityFramework;
 
 namespace CloudMall.Services.Merchant
 {
@@ -26,6 +27,7 @@ namespace CloudMall.Services.Merchant
             services.AddControllers();
 
             services.AddDbContext<MerchantDbContext>(options => options.UseMySql(Configuration.GetConnectionString("Merchant")));
+            services.AddEFRepository();
 
             // swagger
             services.AddSwaggerGen(options =>
