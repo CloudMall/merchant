@@ -65,7 +65,7 @@ namespace CloudMall.Services.Merchant.Controllers
             return Ok(ResultModel.Success(manager));
         }
 
-        [HttpGet("user")]
+        [HttpGet("userMerchants")]
         public async Task<IActionResult> GetManagers(Guid userId)
         {
             var merchantIds = await RepositoryFactory.GetRepository<MerchantManager>()
@@ -112,10 +112,11 @@ namespace CloudMall.Services.Merchant.Controllers
                 return BadRequest(ResultModel.Fail<Models.Merchant>("请求参数异常"));
             }
 
-            var result = await _repository.DeleteAsync(new Models.Merchant()
+            var result = await _repository.UpdateAsync(new Models.Merchant()
             {
-                Id = id
-            });
+                Id = id,
+                IsDeleted = true
+            }, x => x.IsDeleted);
             return Ok(ResultModel.Success(result));
         }
     }
