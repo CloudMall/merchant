@@ -1,9 +1,10 @@
+using CloudMall.Services.Merchant.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using WeihanLi.Common;
@@ -24,22 +25,15 @@ namespace CloudMall.Services.Merchant
         {
             services.AddControllers();
 
-            services.AddDbContext<Merchant.Database.MerchantDbContext>();
+            services.AddDbContext<MerchantDbContext>(options => options.UseMySql(Configuration.GetConnectionString("Merchant")));
 
+            // swagger
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("merchant", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Merchant API", Version = "1.0" });
 
                 options.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, $"{typeof(Startup).Assembly.GetName().Name}.xml"));
                 options.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, $"{typeof(Startup).Assembly.GetName().Name}.xml"), true);
-            });
-
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.KnownNetworks.Clear();
-                options.KnownProxies.Clear();
-                options.ForwardLimit = null;
-                options.ForwardedHeaders = ForwardedHeaders.All;
             });
 
             DependencyResolver.SetDependencyResolver(services);
@@ -53,9 +47,15 @@ namespace CloudMall.Services.Merchant
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseForwardedHeaders();
-            app.UseStaticFiles();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions()
+            {
+                KnownProxies = { },
+                KnownNetworks = { },
+                ForwardLimit = null,
+                ForwardedHeaders = ForwardedHeaders.All
+            });
 
+            app.UseStaticFiles();
             app.UseSwagger()
                 .UseSwaggerUI(c =>
                 {
