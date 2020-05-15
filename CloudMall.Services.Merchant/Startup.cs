@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using WeihanLi.Common;
 using WeihanLi.EntityFramework;
+using WeihanLi.EntityFramework.Audit;
 
 namespace CloudMall.Services.Merchant
 {
@@ -75,6 +76,15 @@ namespace CloudMall.Services.Merchant
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            Init(app.ApplicationServices);
+        }
+
+        private void Init(IServiceProvider serviceProvider)
+        {
+            AuditConfig.Configure(builder =>
+            {
             });
         }
     }

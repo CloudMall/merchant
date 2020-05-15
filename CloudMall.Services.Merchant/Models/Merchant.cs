@@ -15,6 +15,8 @@ namespace CloudMall.Services.Merchant.Models
 
         public string Extra { get; set; }
 
+        public int CategoryId { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }
