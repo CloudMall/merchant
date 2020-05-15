@@ -3,16 +3,14 @@ using System;
 using CloudMall.Services.Merchant.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CloudMall.Services.Merchant.Database.Migrations
+namespace CloudMall.Services.Merchant.Migrations
 {
     [DbContext(typeof(MerchantDbContext))]
-    [Migration("20200514171428_InitMerchants")]
-    partial class InitMerchants
+    partial class MerchantDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,6 +21,9 @@ namespace CloudMall.Services.Merchant.Database.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -88,6 +89,45 @@ namespace CloudMall.Services.Merchant.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MerchantManagers");
+                });
+
+            modelBuilder.Entity("WeihanLi.EntityFramework.Audit.AuditRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Extra")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ObjectId")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<sbyte>("OperationType")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("OriginValue")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("varchar(128) CHARACTER SET utf8mb4")
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditRecords");
                 });
 #pragma warning restore 612, 618
         }

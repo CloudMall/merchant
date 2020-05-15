@@ -2,12 +2,32 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CloudMall.Services.Merchant.Database.Migrations
+namespace CloudMall.Services.Merchant.Migrations
 {
-    public partial class InitMerchants : Migration
+    public partial class InitMerchant : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AuditRecords",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TableName = table.Column<string>(maxLength: 128, nullable: false),
+                    OperationType = table.Column<sbyte>(nullable: false),
+                    ObjectId = table.Column<string>(maxLength: 256, nullable: true),
+                    OriginValue = table.Column<string>(nullable: true),
+                    NewValue = table.Column<string>(nullable: true),
+                    Extra = table.Column<string>(nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 128, nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditRecords", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "MerchantCategories",
                 columns: table => new
@@ -48,6 +68,7 @@ namespace CloudMall.Services.Merchant.Database.Migrations
                     Description = table.Column<string>(maxLength: 512, nullable: true),
                     LogoUrl = table.Column<string>(nullable: true),
                     Extra = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -58,6 +79,9 @@ namespace CloudMall.Services.Merchant.Database.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AuditRecords");
+
             migrationBuilder.DropTable(
                 name: "MerchantCategories");
 
