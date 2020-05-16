@@ -65,7 +65,7 @@ namespace CloudMall.Services.Merchant.Controllers
             return Ok(ResultModel.Success(manager));
         }
 
-        [HttpGet("userMerchants")]
+        [HttpGet("managed")]
         public async Task<IActionResult> GetManagers(Guid userId)
         {
             var merchantIds = await RepositoryFactory.GetRepository<MerchantManager>()
