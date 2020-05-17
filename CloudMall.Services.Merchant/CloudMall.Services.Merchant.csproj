@@ -13,7 +13,7 @@
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
-    <PackageReference Include="WeihanLi.Common" Version="1.0.37-preview-20200514-094816" />
+    <PackageReference Include="WeihanLi.Common" Version="1.0.37-preview-20200517-083059" />
     <PackageReference Include="WeihanLi.EntityFramework" Version="1.7.1" />
   </ItemGroup>
 
