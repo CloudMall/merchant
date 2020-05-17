@@ -3,7 +3,7 @@ using WeihanLi.Common.Models;
 
 namespace CloudMall.Services.Merchant.Models
 {
-    public class Merchant : BaseEntity
+    public class Merchant : BaseEntityWithDeleted
     {
         [StringLength(16)]
         public string Name { get; set; }
@@ -17,6 +17,6 @@ namespace CloudMall.Services.Merchant.Models
 
         public int CategoryId { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public ReviewState State { get; set; }
     }
 }
