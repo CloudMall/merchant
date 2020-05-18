@@ -4,6 +4,8 @@
 
 merchant service for Cloud Mall
 
+[![Build Status](https://weihanli.visualstudio.com/Pipelines/_apis/build/status/CloudMall.storage?branchName=master)](https://weihanli.visualstudio.com/Pipelines/_build/latest?definitionId=30&branchName=master)
+
 ## Docker
 
 ``` bash
