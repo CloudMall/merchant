@@ -43,6 +43,13 @@ namespace CloudMall.Services.Merchant.Migrations
                         .HasColumnType("varchar(16) CHARACTER SET utf8mb4")
                         .HasMaxLength(16);
 
+                    b.Property<string>("Remark")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<sbyte>("State")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("Id");
 
                     b.ToTable("Merchants");

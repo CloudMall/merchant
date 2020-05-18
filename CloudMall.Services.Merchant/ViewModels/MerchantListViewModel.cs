@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WeihanLi.Common.Models;
 
-namespace CloudMall.Services.Merchant.Models
+namespace CloudMall.Services.Merchant.ViewModels
 {
-    public class Merchant : BaseEntityWithDeleted
+    public class MerchantListViewModel : BaseEntity
     {
         [StringLength(16)]
         public string Name { get; set; }
@@ -13,13 +13,6 @@ namespace CloudMall.Services.Merchant.Models
 
         public string LogoUrl { get; set; }
 
-        public string Extra { get; set; }
-
         public int CategoryId { get; set; }
-
-        public ReviewState State { get; set; }
-
-        [StringLength(256)]
-        public string Remark { get; set; }
     }
 }

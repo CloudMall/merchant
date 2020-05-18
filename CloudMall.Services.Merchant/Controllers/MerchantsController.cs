@@ -1,5 +1,6 @@
 ﻿using CloudMall.Services.Merchant.Database;
 using CloudMall.Services.Merchant.Models;
+using CloudMall.Services.Merchant.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -82,6 +83,8 @@ namespace CloudMall.Services.Merchant.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Models.Merchant category)
         {
+            category.State = ReviewState.UnReviewed;
+            category.Remark = null;
             await _repository.InsertAsync(category);
             return Ok(ResultModel.Success(category));
         }
@@ -100,7 +103,34 @@ namespace CloudMall.Services.Merchant.Controllers
             }
 
             model.Id = id;
-            await _repository.UpdateAsync(model);
+            await _repository.UpdateWithoutAsync(model, m => m.State, m => m.Remark);
+            return Ok(ResultModel.Success(model));
+        }
+
+        [HttpPut("{id}/state")]
+        public async Task<IActionResult> Audit(int id, [FromBody]ReviewRequestModel model)
+        {
+            if (id <= 0 || model == null)
+            {
+                return BadRequest(ResultModel.Fail<ReviewRequestModel>("请求参数异常"));
+            }
+            //
+            //if (model.State == ReviewState.UnReviewed)
+            //{
+            //    return BadRequest(ResultModel.Fail<ReviewRequestModel>("审核状态不能为待审核"));
+            //}
+
+            var merchant = await _repository.FindAsync(id);
+            if (null == merchant)
+            {
+                return NotFound(ResultModel.Fail<ReviewRequestModel>($"商户不存在, Id:{id}"));
+            }
+
+            merchant.State = model.State;
+            merchant.Remark = model.Remark;
+
+            await _repository.UpdateAsync(merchant);
+
             return Ok(ResultModel.Success(model));
         }
 

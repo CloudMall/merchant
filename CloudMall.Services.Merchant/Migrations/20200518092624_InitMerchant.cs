@@ -64,12 +64,14 @@ namespace CloudMall.Services.Merchant.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(maxLength: 16, nullable: true),
                     Description = table.Column<string>(maxLength: 512, nullable: true),
                     LogoUrl = table.Column<string>(nullable: true),
                     Extra = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false)
+                    State = table.Column<sbyte>(nullable: false),
+                    Remark = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {

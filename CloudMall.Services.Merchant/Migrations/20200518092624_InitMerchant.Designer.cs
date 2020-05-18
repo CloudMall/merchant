@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudMall.Services.Merchant.Migrations
 {
     [DbContext(typeof(MerchantDbContext))]
-    [Migration("20200515122645_InitMerchant")]
+    [Migration("20200518092624_InitMerchant")]
     partial class InitMerchant
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,13 @@ namespace CloudMall.Services.Merchant.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("varchar(16) CHARACTER SET utf8mb4")
                         .HasMaxLength(16);
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<sbyte>("State")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 

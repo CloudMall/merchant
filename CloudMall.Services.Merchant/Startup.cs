@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using WeihanLi.Common;
+using WeihanLi.Common.Helpers;
 using WeihanLi.EntityFramework;
 using WeihanLi.EntityFramework.Audit;
 
@@ -85,6 +86,7 @@ namespace CloudMall.Services.Merchant
         {
             AuditConfig.Configure(builder =>
             {
+                builder.EnrichWithProperty("Application", ApplicationHelper.ApplicationName);
             });
         }
     }
