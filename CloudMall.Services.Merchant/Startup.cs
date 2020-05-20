@@ -36,7 +36,6 @@ namespace CloudMall.Services.Merchant
             {
                 options.SwaggerDoc("merchant", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Merchant API", Version = "1.0" });
 
-                options.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, $"{typeof(Startup).Assembly.GetName().Name}.xml"));
                 options.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, $"{typeof(Startup).Assembly.GetName().Name}.xml"), true);
             });
 
