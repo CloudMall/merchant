@@ -9,8 +9,10 @@ using Microsoft.Extensions.Hosting;
 using System;
 using WeihanLi.Common;
 using WeihanLi.Common.Helpers;
+using WeihanLi.Common.Services;
 using WeihanLi.EntityFramework;
 using WeihanLi.EntityFramework.Audit;
+using WeihanLi.Web.Extensions;
 
 namespace CloudMall.Services.Merchant
 {
@@ -30,6 +32,12 @@ namespace CloudMall.Services.Merchant
 
             services.AddDbContext<MerchantDbContext>(options => options.UseMySql(Configuration.GetConnectionString("Merchant")));
             services.AddEFRepository();
+
+            // register HttpContextUserIdProvider
+            services.AddHttpContextUserIdProvider(options =>
+            {
+                options.UserIdFactory = context => $"{context.User.GetUserId()}:{context.GetUserIP()}";
+            });
 
             // swagger
             services.AddSwaggerGen(options =>
@@ -83,8 +91,10 @@ namespace CloudMall.Services.Merchant
 
         private void Init(IServiceProvider serviceProvider)
         {
+            var userIdProvider = serviceProvider.GetService<IUserIdProvider>();
             AuditConfig.Configure(builder =>
             {
+                builder.WithUserIdProvider(userIdProvider);
                 builder.EnrichWithProperty("Application", ApplicationHelper.ApplicationName);
             });
         }
