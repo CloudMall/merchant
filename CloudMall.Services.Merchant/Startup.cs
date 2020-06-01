@@ -57,15 +57,7 @@ namespace CloudMall.Services.Merchant
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseForwardedHeaders(new ForwardedHeadersOptions()
-            {
-                KnownProxies = { },
-                KnownNetworks = { },
-                ForwardLimit = null,
-                ForwardedHeaders = ForwardedHeaders.All
-            });
-
+            
             app.UseStaticFiles();
             app.UseSwagger()
                 .UseSwaggerUI(c =>
@@ -96,6 +88,7 @@ namespace CloudMall.Services.Merchant
             {
                 builder.WithUserIdProvider(userIdProvider);
                 builder.EnrichWithProperty("Application", ApplicationHelper.ApplicationName);
+                builder.EnrichWithProperty("Host", Environment.MachineName);
             });
         }
     }

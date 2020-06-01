@@ -15,7 +15,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
     <PackageReference Include="WeihanLi.Common" Version="1.0.38" />
     <PackageReference Include="WeihanLi.EntityFramework" Version="1.8.0-preview-20200521-152300" />
-    <PackageReference Include="WeihanLi.Web.Extensions" Version="1.0.1-preview-20200522-180424" />
+    <PackageReference Include="WeihanLi.Web.Extensions" Version="1.1.0-preview-20200529-145026" />
   </ItemGroup>
 
 
